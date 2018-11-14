@@ -16,7 +16,7 @@ from blog.models import BlogPostForm
 def archive(request):
     # post = BlogPost(title='mocktitle', body = 'mockbody',
     #                 timestamp = datetime.now())
-    posts = BlogPost.objects.all()[:10]
+    posts = BlogPost.objects.all()
     return render(request,'index.html',{'posts':posts,'form':BlogPostForm },RequestContext(request))
 
 def table(request):

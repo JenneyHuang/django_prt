@@ -1,9 +1,10 @@
 <!-- index.html-->
+
 {% extends "base.html" %}
 {% block content %}
     {% for post in posts %}
-        <h2>{{ post.title }}</h2>
-        <p>{{ post.timestamp }}</p>
+        <div class = "date">{{ post.timestamp }}</div>
+        <h1><a href ="">{{ post.title }}</a></h1>
         <p>{{ post.body }}</p>
         <hr>
     {% endfor %}
