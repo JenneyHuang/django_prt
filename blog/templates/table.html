@@ -1,0 +1,8 @@
+<p>学生名单</p>
+{% for name in names %}
+    <table>
+    <tr><td>{{ name.id }}</td><td>{{ name.name }}</td>
+    </tr>
+    </table>
+    <br>
+{% endfor %}
