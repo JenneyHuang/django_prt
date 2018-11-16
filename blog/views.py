@@ -13,10 +13,11 @@ from blog.models import BlogPostForm
 from django.shortcuts import redirect
 from django.shortcuts import render, get_object_or_404
 from .forms import PostForm
+from django.utils import timezone
 @csrf_protect
 def archive(request):
     # post = BlogPost(title='mocktitle', body = 'mockbody',
-    #                 timestamp = datetime.now())
+    #                 timestamp = timezone.now())
     posts = BlogPost.objects.all()
     return render(request, 'blog/index.html', {'posts':posts, 'form':BlogPostForm}, RequestContext(request))
 
@@ -29,7 +30,7 @@ def create_blogpost(request):
         BlogPost(
             title = request.POST.get('title'),
             body = request.POST.get('body'),
-            timestamp=datetime.now(),
+            timestamp=timezone.now(),
         ).save()
     return HttpResponseRedirect('/blog/')
 def create_blogpost(request):
@@ -37,7 +38,7 @@ def create_blogpost(request):
         form = BlogPostForm(request.POST)
         if form.is_valid():
             post = form.save(commit = False)
-            post.timestamp = datetime.now()
+            post.timestamp = timezone.now()
             form.save()
     return HttpResponseRedirect('/blog/')
 
@@ -50,7 +51,7 @@ def post_new(request):
     if form.is_valid():
         post = form.save(commit = False)
         post.author = request.user
-        post.timestamp = datetime.now()
+        post.timestamp = timezone.now()
         post.save()
         return redirect('post_detail', pk=post.pk)
     else:
@@ -64,7 +65,7 @@ def post_edit(request,pk):
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
-            post.timestamp = datetime.now()
+            post.timestamp = timezone.now()
             post.save()
             return redirect('post_detail', pk=post.pk)
     else:
